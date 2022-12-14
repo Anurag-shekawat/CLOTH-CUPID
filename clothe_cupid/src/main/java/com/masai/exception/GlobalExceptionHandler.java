@@ -33,4 +33,9 @@ public class GlobalExceptionHandler {
 		return new ResponseEntity<>(err, HttpStatus.BAD_REQUEST);
 	}
 	
+	@ExceptionHandler(AddressException.class)
+	public ResponseEntity<MyErrorDetails> addressNotFound(AddressException ae,WebRequest req){
+		MyErrorDetails err = new MyErrorDetails(LocalDateTime.now(), ae.getMessage(), req.getDescription(false));
+		return new ResponseEntity<>(err, HttpStatus.BAD_REQUEST);
+	}
 }
