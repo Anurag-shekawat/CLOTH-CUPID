@@ -1,5 +1,6 @@
 package com.masai.service;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -84,6 +85,36 @@ public class OrderServiceImpl implements OrderService {
 	    }
         else {
             throw new OrderException("Order not found with Id");
+            
+        }
+    }
+
+    @Override
+    public List<OrderDetails> getOrderDetailsByDate(LocalDate date) throws OrderException {
+        List<OrderDetails> allOrders = or.findAllByDate(date);
+		
+		if(allOrders.size()>0) {
+            List<OrderDetails> list = new ArrayList<>(allOrders);
+			return list;
+		
+	    }
+        else {
+            throw new OrderException("No order present on the order date");
+            
+        }
+    }
+
+    @Override
+    public List<OrderDetails> getOrderDetailsByCustomerId(Integer id) throws OrderException {
+        List<OrderDetails> allOrders = or.findAllByUserId(id);
+		
+		if(allOrders.size()>0) {
+            List<OrderDetails> list = new ArrayList<>(allOrders);
+			return list;
+		
+	    }
+        else {
+            throw new OrderException("No order found with the given customer Id");
             
         }
     }

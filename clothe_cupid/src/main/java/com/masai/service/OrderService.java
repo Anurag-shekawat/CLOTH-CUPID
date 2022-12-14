@@ -1,5 +1,6 @@
 package com.masai.service;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import com.masai.exception.OrderException;
@@ -18,5 +19,9 @@ public interface OrderService {
     public OrderDetails viewOrder(Integer orderId) throws OrderException;
 
     public List<OrderDetails> getAllOrderDetails() throws OrderException;
+
+    public List<OrderDetails> getOrderDetailsByDate(LocalDate date) throws OrderException;
+
+    public List<OrderDetails> getOrderDetailsByCustomerId(Integer id) throws OrderException;
 
 }
