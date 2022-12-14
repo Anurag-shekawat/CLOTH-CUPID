@@ -29,20 +29,42 @@ public class GlobalExceptionHandler {
 	@ExceptionHandler(MethodArgumentNotValidException.class)
 	public ResponseEntity<MyErrorDetails> myMANVExceptionHandler(MethodArgumentNotValidException me) {
 		MyErrorDetails err = new MyErrorDetails(LocalDateTime.now(), "Validation Error",
-				me.getBindingResult().getFieldError().getDefaultMessage());
+				me.getMessage());
 		return new ResponseEntity<>(err, HttpStatus.BAD_REQUEST);
 	}
-	@ExceptionHandler(CustomerException.class)
-	public ResponseEntity<MyErrorDetails> CustomerException(MethodArgumentNotValidException me) {
-		MyErrorDetails err = new MyErrorDetails(LocalDateTime.now(), "Validation Error",
-				me.getBindingResult().getFieldError().getDefaultMessage());
-		return new ResponseEntity<>(err, HttpStatus.BAD_REQUEST);
+
+	@ExceptionHandler(IllegalArgumentException.class)
+	public ResponseEntity<MyErrorDetails> illegealArgumentHandler(IllegalArgumentException cnf, WebRequest req) {
+
+		MyErrorDetails err = new MyErrorDetails();
+
+		err.setTimestamp(LocalDateTime.now());
+		err.setMessage(cnf.getMessage());
+		err.setDetails(req.getDescription(false));
+
+		return new ResponseEntity<MyErrorDetails>(err, HttpStatus.BAD_REQUEST);
+
 	}
-	@ExceptionHandler(LogInException.class)
-	public ResponseEntity<MyErrorDetails> LogInException(MethodArgumentNotValidException me) {
-		MyErrorDetails err = new MyErrorDetails(LocalDateTime.now(), "Validation Error",
-				me.getBindingResult().getFieldError().getDefaultMessage());
-		return new ResponseEntity<>(err, HttpStatus.BAD_REQUEST);
+
+	@ExceptionHandler(OrderException.class)
+	public ResponseEntity<MyErrorDetails> orderexceptionHandler(OrderException ee, WebRequest req) {
+
+		MyErrorDetails err = new MyErrorDetails();
+
+		err.setTimestamp(LocalDateTime.now());
+		err.setMessage(ee.getMessage());
+		err.setDetails(req.getDescription(false));
+
+		return new ResponseEntity<MyErrorDetails>(err, HttpStatus.BAD_REQUEST);
+
+
 	}
 	
+	@ExceptionHandler(AddressException.class)
+	public ResponseEntity<MyErrorDetails> AddressException(AddressException ae,WebRequest req){
+		MyErrorDetails err = new MyErrorDetails(LocalDateTime.now(),ae.getMessage(),req.getDescription(false));
+		return new ResponseEntity<>(err, HttpStatus.BAD_REQUEST);
+	}
+
+
 }
