@@ -32,5 +32,17 @@ public class GlobalExceptionHandler {
 				me.getBindingResult().getFieldError().getDefaultMessage());
 		return new ResponseEntity<>(err, HttpStatus.BAD_REQUEST);
 	}
+	@ExceptionHandler(CustomerException.class)
+	public ResponseEntity<MyErrorDetails> CustomerException(MethodArgumentNotValidException me) {
+		MyErrorDetails err = new MyErrorDetails(LocalDateTime.now(), "Validation Error",
+				me.getBindingResult().getFieldError().getDefaultMessage());
+		return new ResponseEntity<>(err, HttpStatus.BAD_REQUEST);
+	}
+	@ExceptionHandler(LogInException.class)
+	public ResponseEntity<MyErrorDetails> LogInException(MethodArgumentNotValidException me) {
+		MyErrorDetails err = new MyErrorDetails(LocalDateTime.now(), "Validation Error",
+				me.getBindingResult().getFieldError().getDefaultMessage());
+		return new ResponseEntity<>(err, HttpStatus.BAD_REQUEST);
+	}
 	
 }
