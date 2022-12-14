@@ -32,5 +32,31 @@ public class GlobalExceptionHandler {
 				me.getBindingResult().getFieldError().getDefaultMessage());
 		return new ResponseEntity<>(err, HttpStatus.BAD_REQUEST);
 	}
+
+	@ExceptionHandler(IllegalArgumentException.class)
+    public ResponseEntity<MyErrorDetails> illegealArgumentHandler(IllegalArgumentException cnf,WebRequest req){
+		
+		MyErrorDetails err = new MyErrorDetails();
+		
+		err.setTimestamp(LocalDateTime.now());
+		err.setMessage(cnf.getMessage());
+		err.setDetails(req.getDescription(false));
+		
+		return new ResponseEntity<MyErrorDetails>(err,HttpStatus.BAD_REQUEST);
+		
+	}
+
+	@ExceptionHandler(OrderException.class)
+	public ResponseEntity<MyErrorDetails> orderexceptionHandler(OrderException ee,WebRequest req){
+		
+		MyErrorDetails err = new MyErrorDetails();
+		
+		err.setTimestamp(LocalDateTime.now());
+		err.setMessage(ee.getMessage());
+		err.setDetails(req.getDescription(false));
+		
+		return new ResponseEntity<MyErrorDetails>(err,HttpStatus.BAD_REQUEST);
+		
+	}
 	
 }
