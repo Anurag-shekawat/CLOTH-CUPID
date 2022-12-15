@@ -1,14 +1,16 @@
 package com.masai.module;
 
 import java.time.LocalDate;
-// import java.util.List;
-
+import java.util.ArrayList;
+import java.util.List;
 import javax.persistence.CascadeType;
-import javax.persistence.Embedded;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
 import lombok.AllArgsConstructor;
@@ -31,12 +33,13 @@ public class OrderDetails {
 
     private String orderStatus;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.ALL)
     private Customer customer;
 
-    // private List<Product> productList;
+    @OneToMany(cascade = CascadeType.ALL,mappedBy = "details",fetch = FetchType.EAGER)
+    private List<Product> productList = new ArrayList<>();
 
-    @Embedded
+    @OneToOne(cascade = CascadeType.ALL)
     private Address address;
 
 

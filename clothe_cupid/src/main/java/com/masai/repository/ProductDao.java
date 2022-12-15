@@ -1,5 +1,6 @@
 package com.masai.repository;
 
+
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -11,5 +12,6 @@ public interface ProductDao extends JpaRepository<Product, Integer> {
 	
 	public List<Product> findAllByCategory(String category);
 	
+
 
 }
