@@ -1,6 +1,5 @@
 package com.masai.module;
 
-import java.util.Locale.Category;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
