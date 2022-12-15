@@ -10,4 +10,6 @@ public interface UserDao extends JpaRepository<Users, Integer>{
 
 	public Optional<Users> findByUuId(String key);
 	
+	
+	public Optional<Users> findByUserId(String key);
 }

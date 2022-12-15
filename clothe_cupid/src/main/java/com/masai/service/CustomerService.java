@@ -36,7 +36,7 @@ public class CustomerService implements ICustomerService{
 		Optional<Users> u1= ud.findByUuId(cust.getUser().getUuId());
 		
 		if(u1.isEmpty()) {
-			throw new CustomerException("♣█☻ Invalid Entry ♣█☻");
+			throw new CustomerException("♣█☻ Invalid Entry ☻█♣");
 		}
 		
 		else {	
@@ -47,7 +47,7 @@ public class CustomerService implements ICustomerService{
 
 	@Override
 	public Customer removeCustomer(Customer cust) throws CustomerException {
-		// TODO Auto-generated method stub
+		
 		return null;
 	}
 
