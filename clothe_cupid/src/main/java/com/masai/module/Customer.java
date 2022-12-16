@@ -48,13 +48,13 @@ public class Customer {
 	@JoinColumn(name = "userId")
 	private Users user;
 	
-	@OneToOne(cascade = CascadeType.ALL,mappedBy = "customer")
-	private Cart cart;
+	// @OneToOne(cascade = CascadeType.ALL,mappedBy = "customer")
+	// private Cart cart;
 	
-	@OneToMany(cascade = CascadeType.ALL,mappedBy = "customer",fetch = FetchType.EAGER)
-	private List<OrderDetails> details = new ArrayList<>();
+	// @OneToMany(cascade = CascadeType.ALL,mappedBy = "customer",fetch = FetchType.EAGER)
+	// private List<OrderDetails> details = new ArrayList<>();
 	
-	@ManyToMany(cascade = CascadeType.ALL,mappedBy = "customers")
-	private List<Address> addresses = new ArrayList<>();
+	@OneToOne(cascade = CascadeType.ALL)
+	private Address address ;
 
 }

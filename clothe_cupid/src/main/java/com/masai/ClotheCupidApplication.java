@@ -12,5 +12,5 @@ public class ClotheCupidApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(ClotheCupidApplication.class, args);
 	}
-
+	
 }

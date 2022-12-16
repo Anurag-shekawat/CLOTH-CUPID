@@ -9,6 +9,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToOne;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -35,7 +36,7 @@ public class Address {
 
 	private String pincode;
 
-	@ManyToMany(cascade = CascadeType.ALL)
-	private List<Customer> customers;
+	// @OneToOne(cascade = CascadeType.ALL)
+	// private Customer customer;
 
 }

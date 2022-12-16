@@ -16,7 +16,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
-@Entity
+// @Entity
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -24,11 +24,9 @@ import lombok.ToString;
 @Setter
 @ToString
 public class Category {
-	@Id
+	// @Id
 	private Integer catId;
 	private String categoryName;
 	
-	@OneToMany(cascade = CascadeType.ALL,mappedBy = "category",fetch = FetchType.EAGER)
-	private List<Product> products = new ArrayList<>();
 	
 }
