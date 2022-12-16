@@ -25,7 +25,7 @@ public class Users {
 	@Id
 	private String userId;
 	private String password;
-	private String role;
+	//private String role;
 	@Column(unique = true)
 	private String uuId;
 	private LocalDateTime localDateTime;

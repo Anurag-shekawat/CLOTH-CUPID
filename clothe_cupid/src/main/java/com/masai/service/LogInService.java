@@ -32,7 +32,7 @@ public class LogInService implements ILoginService{
 		
 		if(existingCustomer == null) {
 			
-			throw new LogInException("Please Enter a valid mobile number");
+			throw new LogInException("Please Enter a valid UserId");
 			
 			 
 		}
@@ -76,7 +76,7 @@ public class LogInService implements ILoginService{
 		
 		
 		String key= RandomString.make(9);
-		Users currentUserSession = new Users(u.getUserId(),u.getPassword(),u.getRole(),key,LocalDateTime.now());
+		Users currentUserSession = new Users(u.getUserId(),u.getPassword(),key,LocalDateTime.now());
 		
 		return sDao.save(currentUserSession);
 			 	
