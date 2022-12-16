@@ -28,11 +28,11 @@ public class CustomerControler {
 	}
 	@PutMapping("/customers")
 	public  ResponseEntity<Customer> updateCustomer(@RequestBody Customer customer) throws CustomerException {
-		
+
 		Customer updatedCustomer= cService.updateCustomer(customer);
-				
+
 		return new ResponseEntity<Customer>(updatedCustomer,HttpStatus.OK);
-		
+
 	}
 
 }

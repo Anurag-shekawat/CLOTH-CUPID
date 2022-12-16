@@ -23,62 +23,58 @@ public class CustomerService implements ICustomerService{
 	private UserDao ud;
 
 	@Override
-	public Customer addCustomer(Customer cust) throws CustomerException {
-		Optional<Customer>c1= cd.findByCustomerId(cust.getCustomerId());
+	public Customer addCustomer(Customer customer) throws CustomerException {
+		Optional<Customer>c1= cd.findByCustomerId(customer.getCustomerId());
 		if (c1.isPresent()) {
-			throw new CustomerException("♣█☻ Already record there ☻█♣");
+			throw new CustomerException("Already record there");
 		}
-		else {
-			return cd.save(c1.get());
-		}
+			return cd.save(customer);
 	}
 
 	@Override
 	public Customer updateCustomer(Customer cust) throws CustomerException {
-		
+
 		Optional<Users> u1= ud.findByUuId(cust.getUser().getUuId());
-		
+
 		if(u1.isEmpty()) {
 			throw new CustomerException("♣█☻ Invalid Entry ☻█♣");
 		}
-		
-		else {	
+			cust.setUser(u1.get());
 			return cd.save(cust);
-		}
-		
+
 	}
 
-	@Override
-	public Customer removeCustomer(Customer cust) throws CustomerException {
-		
-		Optional<Users> sessionOpt= ud.findByUserId(cust.getCustomerId());
-		
-		if(sessionOpt.isEmpty()) {
-			throw new CustomerException("Login to Delete Account");
-		}
-		else {
-			cd.delete(cust);
-			return cust;
-		}
-		
-	}
-
-	@Override
-	public Customer viewCustomer(Customer cust) throws CustomerException {
-		
-		Optional<Customer> sessionOpt= cd.findByCustomerId(cust.getCustomerId());
-		
-		if(sessionOpt.isEmpty()) {
-			throw new CustomerException("Login to view Account");
-		}
-		else {
-			return sessionOpt.get();
-		}
-	}
-
-	@Override
-	public List<Customer> viewAllCustomers(String location) throws CustomerException {
-		
+//	@Override
+//	public Customer removeCustomer(Customer cust) throws CustomerException {
+//		
+//		Optional<Users> sessionOpt= ud.findByUserId(cust.getCustomerId());
+//		
+//		if(sessionOpt.isEmpty()) {
+//			throw new CustomerException("Login to Delete Account");
+//		}
+//		else {
+//			cd.delete(cust);
+//			return cust;
+//		}
+//		
+//	}
+//
+//	@Override
+//	public Customer viewCustomer(Customer cust) throws CustomerException {
+//		
+//		Optional<Customer> sessionOpt= cd.findByCustomerId(cust.getCustomerId());
+//		
+//		if(sessionOpt.isEmpty()) {
+//			throw new CustomerException("Login to view Account");
+//		}
+//		else {
+//			return sessionOpt.get();
+//		}
+//	}
+//
+//	@Override
+//	public List<Customer> viewAllCustomers(String location) throws CustomerException {
+//		
 //		List<Customer> customer= 
 //		
 //		if(sessionOpt.isEmpty()) {
@@ -87,8 +83,7 @@ public class CustomerService implements ICustomerService{
 //		else {
 //			return sessionOpt.get();
 //		}
-		return null;
-	}
+//	}
 	
 	
 

@@ -20,22 +20,22 @@ public class LogInController {
 	
 	@PostMapping("/login")
 	public ResponseEntity<Users> logInCustomer(@RequestBody LoginDTO dto) throws LogInException {
-		
-		Users result = customerLogin.logInAccount(dto);
-		
 
-		
+		Users result = customerLogin.logInAccount(dto);
+
+
+
 		return new ResponseEntity<Users>(result,HttpStatus.OK );
-		
-		
+
+
 	}
-	
+
 	@PostMapping("/logout")
 	public ResponseEntity<Users> logoutCustomer(@RequestBody Users u1) throws LogInException {
 		Users result = customerLogin.logOut(u1);
-		
+
 		return new ResponseEntity<Users>(result,HttpStatus.OK);
-		
+
 	}
 
 }

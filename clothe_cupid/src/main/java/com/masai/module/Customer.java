@@ -43,9 +43,10 @@ public class Customer {
 	private String mobileNumber;
 	private String email;
 	private String password;
+	private String role;
 	
 	@OneToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "userId")
+	@JoinColumn(name = "customerId")
 	private Users user;
 	
 	// @OneToOne(cascade = CascadeType.ALL,mappedBy = "customer")
