@@ -1,6 +1,5 @@
 package com.masai.module;
 
-
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -21,18 +20,18 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class Address {
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer addressId;
 
-	private String StreetNo;
+	private String streetNo;
 
-	private String BuildingName;
+	private String buildingName;
 
 	private String city;
 
 	private String state;
 
-	private String Country;
+	private String country;
 
 	private String pincode;
 

@@ -11,7 +11,7 @@ public interface AddressService {
 	
 	public Address updateAddress(Address add) throws AddressException;
 	
-	public Address removeAddress(Address add) throws AddressException;
+	public Address removeAddress(int id) throws AddressException;
 	
 	public Address viewAddressbyId(int id) throws AddressException;
 	

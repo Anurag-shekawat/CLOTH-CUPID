@@ -25,7 +25,7 @@ public class AddressServiceImpl implements AddressService {
 			return aDao.save(add);
 		}
 
-		else throw new AddressException("Please enter the correct details");
+		else throw new AddressException("Please enter the correct Address details");
 	}
 
 	@Override
@@ -43,11 +43,10 @@ public class AddressServiceImpl implements AddressService {
 	}
 
 	@Override
-	public Address removeAddress(Address add) throws AddressException {
-		Address existingAddress = aDao.findById(add.getAddressId()).orElseThrow(() -> new AddressException("Address Not Found..."));
-			aDao.delete(existingAddress);
+	public Address removeAddress(int id) throws AddressException {
+		Address existingAddress = aDao.findById(id).orElseThrow(() -> new AddressException("Address Not Found..."));
+		aDao.delete(existingAddress);
 		return existingAddress;
-
 	}
 
 	@Override
@@ -60,7 +59,6 @@ public class AddressServiceImpl implements AddressService {
 
 	@Override
 	public List<Address> viewAllAddress() throws AddressException {
-
 		List<Address> addresses = aDao.findAll();
 
 		if(addresses.size()==0){
