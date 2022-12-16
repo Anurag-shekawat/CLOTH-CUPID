@@ -65,22 +65,22 @@ public class OrderController {
 		return new ResponseEntity<List<OrderDetails>>(orders, HttpStatus.OK);
 	}
 
-	@GetMapping("/viewAllOrder/{date}")
-	public ResponseEntity<List<OrderDetails>> getOrderDetailsByDate(@PathVariable("date") LocalDate date)
-			throws OrderException {
+	// @GetMapping("/viewAllOrder/{date}")
+	// public ResponseEntity<List<OrderDetails>> getOrderDetailsByDate(@PathVariable("date") LocalDate date)
+	// 		throws OrderException {
 
-		List<OrderDetails> orders = os.getOrderDetailsByDate(date);
+	// 	List<OrderDetails> orders = os.getOrderDetailsByDate(date);
 
-		return new ResponseEntity<List<OrderDetails>>(orders, HttpStatus.OK);
-	}
+	// 	return new ResponseEntity<List<OrderDetails>>(orders, HttpStatus.OK);
+	// }
 
-	@GetMapping("/viewOrders/{c_id}")
-	public ResponseEntity<List<OrderDetails>> getOrderDetailsByCustomerId(@PathVariable("c_id") Integer id)
-			throws OrderException {
+	// @GetMapping("/viewOrders/{c_id}")
+	// public ResponseEntity<List<OrderDetails>> getOrderDetailsByCustomerId(@PathVariable("c_id") Integer id)
+	// 		throws OrderException {
 
-		List<OrderDetails> orders = os.getOrderDetailsByCustomerId(id);
+	// 	List<OrderDetails> orders = os.getOrderDetailsByCustomerId(id);
 
-		return new ResponseEntity<List<OrderDetails>>(orders, HttpStatus.OK);
-	}
+	// 	return new ResponseEntity<List<OrderDetails>>(orders, HttpStatus.OK);
+	// }
 
 }

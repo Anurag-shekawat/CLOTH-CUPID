@@ -20,8 +20,8 @@ public interface OrderService {
 
     public List<OrderDetails> getAllOrderDetails() throws OrderException;
 
-    public List<OrderDetails> getOrderDetailsByDate(LocalDate date) throws OrderException;
+    // public List<OrderDetails> getOrderDetailsByDate(LocalDate date) throws OrderException;
 
-    public List<OrderDetails> getOrderDetailsByCustomerId(Integer id) throws OrderException;
+    // public List<OrderDetails> getOrderDetailsByCustomerId(Integer id) throws OrderException;
 
 }
