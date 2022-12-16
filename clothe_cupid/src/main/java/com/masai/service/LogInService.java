@@ -27,26 +27,27 @@ public class LogInService implements ILoginService{
 
 	@Override
 	public Users logInAccount(LoginDTO dto) throws LogInException {
-		
+
 		Optional<Customer> existingCustomer= cDao.findByCustomerId(dto.getUserId());
-		
-		if(existingCustomer == null) {
-			
+
+		if(existingCustomer.isEmpty()) {
+
 			throw new LogInException("Please Enter a valid UserId");
-			
-			 
+
+
 		}
 		Optional<Users> validCustom =  sDao.findByUserId(existingCustomer.get().getCustomerId());
-		
+
 		if(validCustom.isPresent()) {
-			
+
 			throw new LogInException("User already Logged In with this number");
-			
+
 		}
-		
+
 		if(existingCustomer.get().getPassword().equals(dto.getPassword())) {
-			
-			return validateUser(validCustom.get());
+
+
+			return validateUser(existingCustomer.get());
 		}
 		else
 			throw new LogInException("Please Enter a valid password");
@@ -54,33 +55,33 @@ public class LogInService implements ILoginService{
 
 	@Override
 	public Users logOut(Users u) throws LogInException {
-		
+
 		Optional<Users>validCustomerSession = sDao.findByUuId(u.getUuId());
-		
-		
+
+
 		if(validCustomerSession.isEmpty()) {
 			throw new LogInException("User Not Logged In with this number");
-			
+
 		}
-		
+
 		sDao.delete(validCustomerSession.get());
-		
-		
+
+
 		return validCustomerSession.get();
-		
-		
+
+
 	}
 
 	@Override
-	public Users validateUser(Users u) throws LogInException {
-		
-		
+	public Users validateUser(Customer u) throws LogInException {
+
+
 		String key= RandomString.make(9);
-		Users currentUserSession = new Users(u.getUserId(),u.getPassword(),key,LocalDateTime.now());
-		
+		Users currentUserSession = new Users(u.getCustomerId(),u.getPassword(),u.getRole(),key,LocalDateTime.now());
+
 		return sDao.save(currentUserSession);
-			 	
-	}	
+
+	}
 	
 	
 }

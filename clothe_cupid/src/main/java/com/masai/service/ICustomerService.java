@@ -12,11 +12,11 @@ public interface ICustomerService {
 	
 	public Customer updateCustomer(Customer cust) throws CustomerException;
 	
-	public Customer removeCustomer(Customer cust) throws CustomerException;
+	//public Customer removeCustomer(Customer cust) throws CustomerException;
 	
-	public Customer viewCustomer(Customer cust) throws CustomerException;
+	//public Customer viewCustomer(Customer cust) throws CustomerException;
 	
-	public List<Customer> viewAllCustomers(String location) throws CustomerException;
+	//public List<Customer> viewAllCustomers(String location) throws CustomerException;
 	
 }
  
