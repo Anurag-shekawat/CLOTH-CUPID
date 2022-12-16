@@ -89,35 +89,35 @@ public class OrderServiceImpl implements OrderService {
         }
     }
 
-    @Override
-    public List<OrderDetails> getOrderDetailsByDate(LocalDate date) throws OrderException {
-        List<OrderDetails> allOrders = or.findAllByDate(date);
+    // @Override
+    // public List<OrderDetails> getOrderDetailsByDate(LocalDate date) throws OrderException {
+    //     List<OrderDetails> allOrders = or.findAllByDate(date);
 		
-		if(allOrders.size()>0) {
-            List<OrderDetails> list = new ArrayList<>(allOrders);
-			return list;
+	// 	if(allOrders.size()>0) {
+    //         List<OrderDetails> list = new ArrayList<>(allOrders);
+	// 		return list;
 		
-	    }
-        else {
-            throw new OrderException("No order present on the order date");
+	//     }
+    //     else {
+    //         throw new OrderException("No order present on the order date");
             
-        }
-    }
+    //     }
+    // }
 
-    @Override
-    public List<OrderDetails> getOrderDetailsByCustomerId(Integer id) throws OrderException {
-        List<OrderDetails> allOrders = or.findAllByUserId(id);
+    // @Override
+    // public List<OrderDetails> getOrderDetailsByCustomerId(Integer id) throws OrderException {
+    //     List<OrderDetails> allOrders = or.findAllByUserId(id);
 		
-		if(allOrders.size()>0) {
-            List<OrderDetails> list = new ArrayList<>(allOrders);
-			return list;
+	// 	if(allOrders.size()>0) {
+    //         List<OrderDetails> list = new ArrayList<>(allOrders);
+	// 		return list;
 		
-	    }
-        else {
-            throw new OrderException("No order found with the given customer Id");
+	//     }
+    //     else {
+    //         throw new OrderException("No order found with the given customer Id");
             
-        }
-    }
+    //     }
+    // }
 
 
   

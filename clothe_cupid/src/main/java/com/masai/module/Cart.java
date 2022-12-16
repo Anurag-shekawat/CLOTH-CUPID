@@ -1,6 +1,7 @@
 package com.masai.module;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.persistence.CascadeType;
@@ -31,8 +32,11 @@ public class Cart {
 	@OneToOne(cascade = CascadeType.ALL)
 	private Customer customer;
 	
-	@OneToMany(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
-	private Map<Product, Integer> productList = new HashMap<>();
+	// @OneToMany(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
+	// private Map<Product, Integer> productList = new HashMap<>();
+
+	@OneToMany(cascade = CascadeType.ALL)
+	private List<Product> productList ;
 	
 	
 }

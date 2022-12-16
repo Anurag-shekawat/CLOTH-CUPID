@@ -26,13 +26,13 @@ public class CartController {
 	@Autowired
 	private CartService cService;
 
-	@PostMapping("/addProductTocart")
-	public ResponseEntity<Cart> addProductToCartController(@RequestBody Cart cart,
-			@RequestParam("prodId") Integer prodId, @RequestParam("quantity") Integer quantity)
-			throws CartException, ProductException {
-		Cart newCart = cService.addProductToCart(cart, prodId, quantity);
-		return new ResponseEntity<Cart>(newCart, HttpStatus.ACCEPTED);
-	}
+	// @PostMapping("/addProductTocart")
+	// public ResponseEntity<Cart> addProductToCartController(@RequestBody Cart cart,
+	// 		@RequestParam("prodId") Integer prodId, @RequestParam("quantity") Integer quantity)
+	// 		throws CartException, ProductException {
+	// 	Cart newCart = cService.addProductToCart(cart, prodId, quantity);
+	// 	return new ResponseEntity<Cart>(newCart, HttpStatus.ACCEPTED);
+	// }
 
 	@PutMapping("/removeProduct")
 	public ResponseEntity<Cart> removeProductFromCartController(@RequestParam("prodId") Integer prodId,
@@ -41,13 +41,13 @@ public class CartController {
 		return new ResponseEntity<Cart>(newCart, HttpStatus.ACCEPTED);
 	}
 
-	@PutMapping("/updateProductQuantity")
-	public ResponseEntity<Cart> updateProductQuantityController(@RequestParam("prodId") Integer prodId,
-			@RequestParam("cartId") Integer cartId, @RequestParam("quantity") Integer quantity)
-			throws CartException, ProductException {
-		Cart newCart = cService.updateProductQuantity(cartId, prodId, quantity);
-		return new ResponseEntity<Cart>(newCart, HttpStatus.ACCEPTED);
-	}
+	// @PutMapping("/updateProductQuantity")
+	// public ResponseEntity<Cart> updateProductQuantityController(@RequestParam("prodId") Integer prodId,
+	// 		@RequestParam("cartId") Integer cartId, @RequestParam("quantity") Integer quantity)
+	// 		throws CartException, ProductException {
+	// 	Cart newCart = cService.updateProductQuantity(cartId, prodId, quantity);
+	// 	return new ResponseEntity<Cart>(newCart, HttpStatus.ACCEPTED);
+	// }
 
 	@DeleteMapping("/removeAllProduct")
 	public ResponseEntity<Cart> deleteAllProductFromCartController(@RequestParam("cartId") Integer cartId)
@@ -56,10 +56,10 @@ public class CartController {
 		return new ResponseEntity<Cart>(newCart, HttpStatus.ACCEPTED);
 	}
 	
-	@GetMapping("/viewAllProduct")
-	public ResponseEntity<List<Product>> viewAllProductHandler(@RequestParam("cartId") Integer cartId) throws CartException, ProductException{
-		List<Product> products = cService.viewAllProducts(cartId);
-		return new ResponseEntity<List<Product>>(products,HttpStatus.ACCEPTED);
-	}
+	// @GetMapping("/viewAllProduct")
+	// public ResponseEntity<List<Product>> viewAllProductHandler(@RequestParam("cartId") Integer cartId) throws CartException, ProductException{
+	// 	List<Product> products = cService.viewAllProducts(cartId);
+	// 	return new ResponseEntity<List<Product>>(products,HttpStatus.ACCEPTED);
+	// }
 
 }

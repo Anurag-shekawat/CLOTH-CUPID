@@ -72,5 +72,11 @@ public class GlobalExceptionHandler {
 		return new ResponseEntity<>(err, HttpStatus.BAD_REQUEST);
 	}
 
+	@ExceptionHandler(ProductException.class)
+	public ResponseEntity<MyErrorDetails> productException(ProductException ce,WebRequest req){
+		MyErrorDetails err = new MyErrorDetails(LocalDateTime.now(),ce.getMessage(),req.getDescription(false));
+		return new ResponseEntity<>(err, HttpStatus.BAD_REQUEST);
+	}
+
 
 }

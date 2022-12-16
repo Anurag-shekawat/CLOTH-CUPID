@@ -23,12 +23,12 @@ public class CartServiceImpl implements CartService {
 	@Autowired
 	private ProductDao pDao;
 	
-	@Override
-	public Cart addProductToCart(Cart cart, Integer prodId, Integer quantity) throws CartException,ProductException {
-		Product product = pDao.findById(prodId).orElseThrow(() -> new ProductException("No product found with product id: "+prodId));
-		cart.getProductList().put(product, quantity);
-		return cDao.save(cart);
-	}
+	// @Override
+	// public Cart addProductToCart(Cart cart, Integer prodId, Integer quantity) throws CartException,ProductException {
+	// 	Product product = pDao.findById(prodId).orElseThrow(() -> new ProductException("No product found with product id: "+prodId));
+	// 	cart.getProductList().put(product, quantity);
+	// 	return cDao.save(cart);
+	// }
 
 	@Override
 	public Cart removeProductFromCart(Integer cartId,Integer prodId) throws CartException,ProductException {
@@ -40,15 +40,15 @@ public class CartServiceImpl implements CartService {
 		return cDao.save(cart);
 	}
 
-	@Override
-	public Cart updateProductQuantity(Integer cartId,Integer prodId, int quantity) throws CartException,ProductException {
-		Product product = pDao.findById(prodId).orElseThrow(() -> new ProductException("No product found with product id: "+prodId));
-		Cart cart = cDao.findById(cartId).orElseThrow(() -> new CartException("No cart found with cart id: "+cartId));
+	// @Override
+	// public Cart updateProductQuantity(Integer cartId,Integer prodId, int quantity) throws CartException,ProductException {
+	// 	Product product = pDao.findById(prodId).orElseThrow(() -> new ProductException("No product found with product id: "+prodId));
+	// 	Cart cart = cDao.findById(cartId).orElseThrow(() -> new CartException("No cart found with cart id: "+cartId));
 		
-		cart.getProductList().replace(product, quantity);
+	// 	cart.getProductList().replace(product, quantity);
 		
-		return cDao.save(cart);
-	}
+	// 	return cDao.save(cart);
+	// }
 
 	@Override
 	public Cart removeAllProducts(Integer cartId) throws CartException {
@@ -58,22 +58,22 @@ public class CartServiceImpl implements CartService {
 		return cart;
 	}
 
-	@Override
-	public List<Product> viewAllProducts(Integer cartId) throws CartException,ProductException {
-		Cart cart = cDao.findById(cartId).orElseThrow(() -> new CartException("No cart found with cart id: "+cartId));
-		List<Product> products = new ArrayList<>();
+// 	@Override
+// 	public List<Product> viewAllProducts(Integer cartId) throws CartException,ProductException {
+// 		Cart cart = cDao.findById(cartId).orElseThrow(() -> new CartException("No cart found with cart id: "+cartId));
+// 		List<Product> products = new ArrayList<>();
 		
-		 for(Map.Entry m : cart.getProductList().entrySet()){    
-//			    System.out.println(m.getKey()+" "+m.getValue());
-			 products.add((Product) m.getKey());
-		 }
+// 		 for(Map.Entry m : cart.getProductList().entrySet()){    
+// //			    System.out.println(m.getKey()+" "+m.getValue());
+// 			 products.add((Product) m.getKey());
+// 		 }
 		 
-		 if(products.size()==0) {
-			 throw new ProductException("No product exist in this cart");
-		 }
+// 		 if(products.size()==0) {
+// 			 throw new ProductException("No product exist in this cart");
+// 		 }
 		 
-		 return products;
-	}
+// 		 return products;
+// 	}
 
 	
 	
