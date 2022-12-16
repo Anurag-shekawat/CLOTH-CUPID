@@ -21,13 +21,11 @@ public class AddressServiceImpl implements AddressService {
 
 	@Override
 	public Address addAddress(Address add) throws AddressException {
-		Optional<Address> existAddress = aDao.findById(add.getAddressId());
-
-		if (existAddress.isPresent()) {
-			throw new AddressException("Address Already Present...");
+		if (add!=null) {
+			return aDao.save(add);
 		}
 
-		return aDao.save(add);
+		else throw new AddressException("Please enter the correct details");
 	}
 
 	@Override

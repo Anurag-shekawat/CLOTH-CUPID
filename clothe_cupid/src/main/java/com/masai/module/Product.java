@@ -2,12 +2,15 @@ package com.masai.module;
 
 
 import javax.persistence.CascadeType;
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotBlank;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -44,12 +47,12 @@ public class Product {
 	@NotBlank(message = "Enter Product Quantity")
 	private Integer quantity;
 	
-	@NotBlank(message = "Enter Product Category")
-	@ManyToOne(cascade = CascadeType.ALL)
+	@Embedded
 	private Category category;
 	
-	@ManyToOne(cascade = CascadeType.ALL)
-	private OrderDetails details;
+	// @JsonIgnore
+	// @ManyToOne(cascade = CascadeType.ALL)
+	// private OrderDetails details;
 	
 
 }

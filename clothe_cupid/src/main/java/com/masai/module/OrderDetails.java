@@ -13,6 +13,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -33,14 +35,20 @@ public class OrderDetails {
 
     private String orderStatus;
 
-    @ManyToOne(cascade = CascadeType.ALL)
-    private Customer customer;
+    // @ManyToOne(cascade = CascadeType.ALL)
+    // @JsonIgnore
+    // private Customer customer;
 
-    @OneToMany(cascade = CascadeType.ALL,mappedBy = "details",fetch = FetchType.EAGER)
-    private List<Product> productList = new ArrayList<>();
+    // @OneToMany(cascade = CascadeType.ALL,mappedBy = "details",fetch = FetchType.EAGER)
+    // private List<Product> productList = new ArrayList<>();
+
+    // @OneToOne(cascade = CascadeType.ALL)
+    // private Address address;
 
     @OneToOne(cascade = CascadeType.ALL)
-    private Address address;
+    private Cart cart;
+
+
 
 
 }
