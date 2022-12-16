@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 import com.masai.module.Users;
 
 @Repository
-public interface UserDao extends JpaRepository<Users, Integer>{
+public interface UserDao extends JpaRepository<Users, String>{
 
 	public Optional<Users> findByUuId(String key);
 	
