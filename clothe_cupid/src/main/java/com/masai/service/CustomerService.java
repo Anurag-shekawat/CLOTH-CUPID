@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.masai.exception.CustomerException;
 import com.masai.module.Customer;
@@ -11,6 +12,8 @@ import com.masai.module.Users;
 import com.masai.repository.CustomerDao;
 import com.masai.repository.UserDao;
 
+
+@Service
 public class CustomerService implements ICustomerService{
 	
 	@Autowired
@@ -48,18 +51,42 @@ public class CustomerService implements ICustomerService{
 	@Override
 	public Customer removeCustomer(Customer cust) throws CustomerException {
 		
-		return null;
+		Optional<Users> sessionOpt= ud.findByUserId(cust.getCustomerId());
+		
+		if(sessionOpt.isEmpty()) {
+			throw new CustomerException("Login to Delete Account");
+		}
+		else {
+			cd.delete(cust);
+			return cust;
+		}
+		
 	}
 
 	@Override
 	public Customer viewCustomer(Customer cust) throws CustomerException {
-		// TODO Auto-generated method stub
-		return null;
+		
+		Optional<Customer> sessionOpt= cd.findByCustomerId(cust.getCustomerId());
+		
+		if(sessionOpt.isEmpty()) {
+			throw new CustomerException("Login to view Account");
+		}
+		else {
+			return sessionOpt.get();
+		}
 	}
 
 	@Override
 	public List<Customer> viewAllCustomers(String location) throws CustomerException {
-		// TODO Auto-generated method stub
+		
+//		List<Customer> customer= 
+//		
+//		if(sessionOpt.isEmpty()) {
+//			throw new CustomerException("Login to view Account");
+//		}
+//		else {
+//			return sessionOpt.get();
+//		}
 		return null;
 	}
 	

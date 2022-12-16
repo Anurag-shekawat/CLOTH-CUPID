@@ -5,6 +5,7 @@ import java.time.LocalDateTime;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.masai.exception.LogInException;
 import com.masai.module.Customer;
@@ -15,6 +16,7 @@ import com.masai.repository.UserDao;
 
 import net.bytebuddy.utility.RandomString;
 
+@Service
 public class LogInService implements ILoginService{
 	
 	@Autowired
@@ -42,9 +44,8 @@ public class LogInService implements ILoginService{
 			
 		}
 		
-		if(existingCustomer.get().getUser().getPassword().equals(dto.getPassword())) {
+		if(existingCustomer.get().getPassword().equals(dto.getPassword())) {
 			
-
 			return validateUser(validCustom.get());
 		}
 		else
