@@ -7,8 +7,11 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.masai.exception.CartException;
 import com.masai.exception.OrderException;
+import com.masai.module.Cart;
 import com.masai.module.OrderDetails;
+import com.masai.repository.CartDao;
 import com.masai.repository.OrderRepo;
 
 
@@ -18,26 +21,28 @@ public class OrderServiceImpl implements OrderService {
     @Autowired
     private OrderRepo or;
 
+    @Autowired
+    private CartDao cr;
+
+  
     @Override
-    public OrderDetails addOrder(OrderDetails order) throws OrderException {
-        if(order!=null){
-            or.save(order);
-            return order;
-        }
-        else{
-            throw new OrderException("Fill all the proper detail of order");
-        }
+    public OrderDetails addOrder(OrderDetails order, Integer cartId) throws OrderException,CartException {
+        // Optional<OrderDetails> existingorder = or.findById(order.getOrderId());
+        Cart cart = cr.findById(cartId).orElseThrow(() -> new CartException("No cart found with cart id: "+cartId));
+        order.setCart(cart);
+     
+	 	return or.save(order);
         
     }
 
     @Override
-    public OrderDetails updateOrder(OrderDetails order, Integer id) throws OrderException {
-        Optional<OrderDetails> opt=or.findById(id);
+    public OrderDetails updateOrder(OrderDetails order) throws OrderException {
+        Optional<OrderDetails> opt=or.findById(order.getOrderId());
 		
 		if(opt.isPresent()) {
-			
-			OrderDetails updatedOrder= or.save(order);
-			return updatedOrder;
+			Cart cart = opt.get().getCart();
+            order.setCart(cart);
+           return or.save(order);
 			
 		}else
 			throw new OrderException("Invalid Order detils"); 
@@ -87,6 +92,7 @@ public class OrderServiceImpl implements OrderService {
             
         }
     }
+
 
     // @Override
     // public List<OrderDetails> getOrderDetailsByDate(LocalDate date) throws OrderException {

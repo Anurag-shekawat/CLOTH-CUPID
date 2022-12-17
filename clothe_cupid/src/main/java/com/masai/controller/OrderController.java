@@ -11,8 +11,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.masai.exception.CartException;
 import com.masai.exception.OrderException;
 import com.masai.module.OrderDetails;
 import com.masai.service.OrderService;
@@ -24,18 +26,19 @@ public class OrderController {
 	private OrderService os;
 
 	@PostMapping("/AddOrder")
-	public ResponseEntity<OrderDetails> addOrder(@RequestBody OrderDetails order) throws OrderException {
+	public ResponseEntity<OrderDetails> addOrder(@RequestBody OrderDetails order,
+			@RequestParam("cartId") Integer cartId) throws OrderException,CartException {
 
-		OrderDetails AddOrder = os.addOrder(order);
+		OrderDetails AddOrder = os.addOrder(order, cartId);
 
 		return new ResponseEntity<OrderDetails>(AddOrder, HttpStatus.CREATED);
 	}
 
 	@PutMapping("/updateOrder/{id}")
-	public ResponseEntity<OrderDetails> updateCustomer(@RequestBody OrderDetails order, @PathVariable("id") Integer id)
+	public ResponseEntity<OrderDetails> updateCustomer(@RequestBody OrderDetails order)
 			throws OrderException {
 
-		OrderDetails updatedOrder = os.updateOrder(order, id);
+		OrderDetails updatedOrder = os.updateOrder(order);
 
 		return new ResponseEntity<OrderDetails>(updatedOrder, HttpStatus.OK);
 	}
@@ -65,21 +68,23 @@ public class OrderController {
 	}
 
 	// @GetMapping("/viewAllOrder/{date}")
-	// public ResponseEntity<List<OrderDetails>> getOrderDetailsByDate(@PathVariable("date") LocalDate date)
-	// 		throws OrderException {
+	// public ResponseEntity<List<OrderDetails>>
+	// getOrderDetailsByDate(@PathVariable("date") LocalDate date)
+	// throws OrderException {
 
-	// 	List<OrderDetails> orders = os.getOrderDetailsByDate(date);
+	// List<OrderDetails> orders = os.getOrderDetailsByDate(date);
 
-	// 	return new ResponseEntity<List<OrderDetails>>(orders, HttpStatus.OK);
+	// return new ResponseEntity<List<OrderDetails>>(orders, HttpStatus.OK);
 	// }
 
 	// @GetMapping("/viewOrders/{c_id}")
-	// public ResponseEntity<List<OrderDetails>> getOrderDetailsByCustomerId(@PathVariable("c_id") Integer id)
-	// 		throws OrderException {
+	// public ResponseEntity<List<OrderDetails>>
+	// getOrderDetailsByCustomerId(@PathVariable("c_id") Integer id)
+	// throws OrderException {
 
-	// 	List<OrderDetails> orders = os.getOrderDetailsByCustomerId(id);
+	// List<OrderDetails> orders = os.getOrderDetailsByCustomerId(id);
 
-	// 	return new ResponseEntity<List<OrderDetails>>(orders, HttpStatus.OK);
+	// return new ResponseEntity<List<OrderDetails>>(orders, HttpStatus.OK);
 	// }
 
 }
