@@ -28,7 +28,9 @@ public class CustomerService implements ICustomerService{
 		if (c1.isPresent()) {
 			throw new CustomerException("Already record there");
 		}
-			return cd.save(customer);
+		
+		customer.getAddress().setCustomer(customer);
+		return cd.save(customer);
 	}
 
 	@Override

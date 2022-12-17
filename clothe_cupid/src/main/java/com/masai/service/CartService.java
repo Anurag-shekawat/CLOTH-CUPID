@@ -10,7 +10,7 @@ import com.masai.module.Product;
 
 public interface CartService {
 
-	public Cart addProductToCart(Cart cart,String customerId ,Integer prodId, Integer quantity)throws CustomerException,CartException,ProductException;
+	public Cart addProductToCart(Cart cart,String customerId ,Integer prodId)throws CustomerException,CartException,ProductException;
 	public Cart removeProductFromCart(Integer cartId,Integer prodId)throws CartException,ProductException;
 	public Cart updateProductQuantity(Integer cartId,Integer prodId, int quantity)throws CartException,ProductException;
 	public Cart removeAllProducts(Integer cartId)throws CartException;
