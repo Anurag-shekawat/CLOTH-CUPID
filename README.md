@@ -35,6 +35,6 @@
 
 - **[Anurag Shekhawat]** 
 - **[Vinay Pathania]**
-- **[Suhaib Malik])**
+- **[Suhaib Malik]**
 - **[Shubham kumar singh]**
 - **[Akash Kumar]**
