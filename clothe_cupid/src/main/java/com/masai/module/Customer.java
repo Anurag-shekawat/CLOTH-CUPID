@@ -53,6 +53,7 @@ public class Customer {
 	// private List<OrderDetails> details = new ArrayList<>();
 	
 	@OneToOne(cascade = CascadeType.ALL)
+	@JsonIgnore
 	private Address address ;
 
 }
