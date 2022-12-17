@@ -1,7 +1,6 @@
 package com.masai.module;
 
 import java.io.Serializable;
-import java.security.Provider.Service;
 import java.util.Properties;
 
 import org.hibernate.HibernateException;
@@ -11,8 +10,6 @@ import org.hibernate.id.enhanced.SequenceStyleGenerator;
 import org.hibernate.internal.util.config.ConfigurationHelper;
 import org.hibernate.service.ServiceRegistry;
 import org.hibernate.type.LongType;
-
-import aj.org.objectweb.asm.Type;
 
 public class StringSequenceGenerator extends SequenceStyleGenerator{
 	
