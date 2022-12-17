@@ -10,6 +10,7 @@ import com.masai.module.Product;
 @Repository
 public interface ProductDao extends JpaRepository<Product, Integer> {
 	
+	
 	public List<Product> findAllByCategory(String category);
 	
 
