@@ -10,6 +10,8 @@ import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToOne;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -36,6 +38,7 @@ public class Address {
 	private String pincode;
 
 	 @OneToOne(cascade = CascadeType.ALL)
+	 @JsonIgnore
 	 private Customer customer;
 
 }

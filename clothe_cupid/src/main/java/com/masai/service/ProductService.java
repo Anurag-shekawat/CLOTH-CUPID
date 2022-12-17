@@ -16,7 +16,7 @@ public interface ProductService  {
 	
 	public Product viewProduct(Integer pId)throws ProductException;
 	
-	public List<Product> viewAllProductsByCategory(String cname)throws ProductException;
+	public List<Product> viewAllProductsByCategory(String catName)throws ProductException;
 	
 	public Product removeProduct(Integer pId)throws ProductException;
 	

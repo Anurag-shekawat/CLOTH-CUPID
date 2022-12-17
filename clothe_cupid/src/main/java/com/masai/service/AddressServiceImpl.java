@@ -22,9 +22,11 @@ public class AddressServiceImpl implements AddressService {
 	@Override
 	public Address addAddress(Address add) throws AddressException {
 		if (add!=null) {
+//			add.getCustomer().setAddress(add);
 			return aDao.save(add);
 		}
 
+		
 		else throw new AddressException("Please enter the correct Address details");
 	}
 
