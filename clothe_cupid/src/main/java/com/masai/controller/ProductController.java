@@ -17,8 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.masai.exception.ProductException;
 import com.masai.module.Product;
 import com.masai.service.ProductService;
-
-import io.swagger.v3.oas.annotations.parameters.RequestBody;
+import org.springframework.web.bind.annotation.RequestBody;
 
 @RestController
 public class ProductController {
@@ -26,7 +25,7 @@ public class ProductController {
 	
 	
 	@Autowired
-	ProductService pService;
+	private ProductService pService;
 	
 	@GetMapping("/product")
 	public ResponseEntity<List<Product>> viewAllProduct() throws ProductException{

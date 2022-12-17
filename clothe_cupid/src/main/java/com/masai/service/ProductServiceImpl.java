@@ -31,9 +31,12 @@ public class ProductServiceImpl implements ProductService{
 	@Override
 	public Product addProduct(Product product) throws ProductException {
 		
-		pDao.save(product);
+		if(product!=null){
+			return pDao.save(product);
+
+		}
 		
-		return product;
+		throw new ProductException("invalid data...");
 	}
 
 	@Override
@@ -73,8 +76,6 @@ public class ProductServiceImpl implements ProductService{
 		if(list.size()==0) {
 			throw new ProductException("Product not found....!!!!!!!!");
 		}
-		
-		
 		
 		return list;
 	}
