@@ -23,7 +23,7 @@ public class SpringFoxCoonfiguration {
 	private ApiInfo apiDetails() {
 		return new ApiInfo("Online Shoping application", "Api for shoping application", "1.0", "Free to use",
 				new springfox.documentation.service.Contact(null, null, null), "Github",
-				"https://github.com/Anurag-shekawat/Cab-Booking-Application", Collections.emptyList());
+				"https://github.com/Anurag-shekawat/main-transport-9463", Collections.emptyList());
 	}
 
 }

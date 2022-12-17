@@ -3,6 +3,7 @@ package com.masai.service;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -30,12 +31,20 @@ public class CartServiceImpl implements CartService {
 	private ProductDao pDao;
 	
 	 @Override
-	 public Cart addProductToCart(Cart cart, String customerid, Integer prodId, Integer quantity) throws CustomerException,CartException,ProductException {
+	 public Cart addProductToCart(Cart cart, String customerid, Integer prodId) throws CustomerException,CartException,ProductException {
+		Optional<Cart> existingCart = cDao.findById(cart.getCartId());
 	 	Product product = pDao.findById(prodId).orElseThrow(() -> new ProductException("No product found with product id: "+prodId));
 	 	Customer customer = customerDao.findByCustomerId(customerid).orElseThrow(() -> new CustomerException("No customer exist with customer id: "+customerid));
 	 	cart.setCustomer(customer);
-	 	cart.getProductList().put(product, quantity);
-	 	return cDao.save(cart);
+	 	
+	 	if(existingCart==null) {
+	 		cart.getProductList().put(product, product.getQuantity());
+		 	return cDao.save(cart);
+	 	}else {
+	 		existingCart.get().getProductList().put(product, product.getQuantity());
+		 	return cDao.save(existingCart.get());
+	 	}
+	 	
 	 }
 
 	@Override
