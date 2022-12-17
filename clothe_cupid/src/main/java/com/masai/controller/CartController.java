@@ -49,7 +49,7 @@ public class CartController {
 	 	return new ResponseEntity<Cart>(newCart, HttpStatus.ACCEPTED);
 	 }
 
-	@DeleteMapping("/removeAllProduct")
+	@PutMapping("/removeAllProduct")
 	public ResponseEntity<Cart> deleteAllProductFromCartController(@RequestParam("cartId") Integer cartId)
 			throws CartException, ProductException {
 		Cart newCart = cService.removeAllProducts(cartId);

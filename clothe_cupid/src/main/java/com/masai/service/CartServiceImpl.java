@@ -37,13 +37,14 @@ public class CartServiceImpl implements CartService {
 	 	Customer customer = customerDao.findByCustomerId(customerid).orElseThrow(() -> new CustomerException("No customer exist with customer id: "+customerid));
 	 	cart.setCustomer(customer);
 	 	
-	 	if(existingCart==null) {
-	 		cart.getProductList().put(product, product.getQuantity());
-		 	return cDao.save(cart);
-	 	}else {
+	 	if(existingCart.isPresent()) {
 	 		existingCart.get().getProductList().put(product, product.getQuantity());
-		 	return cDao.save(existingCart.get());
+			return cDao.save(existingCart.get());
 	 	}
+	 	
+	 	cart.getProductList().put(product, product.getQuantity());
+	 	return cDao.save(cart);
+	 	
 	 	
 	 }
 
@@ -70,9 +71,13 @@ public class CartServiceImpl implements CartService {
 	@Override
 	public Cart removeAllProducts(Integer cartId) throws CartException {
 		Cart cart = cDao.findById(cartId).orElseThrow(() -> new CartException("No cart found with cart id: "+cartId));
-		cart.getProductList().clear();
-		cDao.delete(cart);
-		return cart;
+		
+		Map<Product, Integer> map = cart.getProductList();
+		if(map.size()==0) {
+			throw new CartException("Cart is empty..");
+		}
+		map.clear();
+		return cDao.save(cart);
 	}
 
  	@Override

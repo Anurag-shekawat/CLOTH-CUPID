@@ -1,5 +1,6 @@
 package com.masai.service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -69,15 +70,26 @@ public class ProductServiceImpl implements ProductService{
 	}
 
 	@Override
-	public List<Product> viewAllProductsByCategory(String cname) throws ProductException {
+	public List<Product> viewAllProductsByCategory(String catName) throws ProductException {
 		
-		List<Product> list=pDao.findAllByCategory(cname);
-		
+		List<Product> list=pDao.findAll();
+
 		if(list.size()==0) {
 			throw new ProductException("Product not found....!!!!!!!!");
 		}
 		
-		return list;
+		List<Product> newList = new ArrayList<>();
+		
+		for(Product prod:list) {
+			if(prod.getCategory().getCategoryName().toLowerCase().equals(catName.toLowerCase())) {
+				newList.add(prod);
+			}
+		}
+		
+		if(newList.size()==0) {
+			throw new ProductException("Product not found....!!!!!!!!");
+		}
+		return newList;
 	}
 
 	@Override
