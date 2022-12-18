@@ -19,8 +19,7 @@ public class AddressServiceImpl implements AddressService {
 	@Autowired
 	private AddressDao aDao;
 
-	@Autowired
-	private CustomerDao cDao;
+	
 
 	@Override
 	public Address addAddress(Address add) throws AddressException {
