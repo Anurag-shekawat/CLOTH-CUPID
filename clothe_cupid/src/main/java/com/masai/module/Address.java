@@ -8,7 +8,7 @@ import javax.persistence.Id;
 import javax.persistence.OneToOne;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.NotNull;
-
+import javax.validation.constraints.Size;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -20,7 +20,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class Address {
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer addressId;
 
 	@NotNull(message = "streetNo can not be null")
@@ -39,7 +39,7 @@ public class Address {
 	private String country;
 
 	@NotNull(message = "pincode can not be null")
-	@Max(value = 6,message = "pincode size cannot be greater then 6")
+	@Size(min = 5, max = 8, message = "pincode size cannot be greater then 6")
 	private String pincode;
 
 	@OneToOne(cascade = CascadeType.ALL)
