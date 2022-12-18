@@ -47,9 +47,9 @@ public class CustomerService implements ICustomerService{
 	}
 
 	@Override
-	public Customer updateCustomer(Customer cust) throws CustomerException {
+	public Customer updateCustomer(Customer cust,String key) throws CustomerException {
 
-		Optional<Users> u1= ud.findByUuId(cust.getUser().getUuId());
+		Optional<Users> u1= ud.findByUuId(key);
 
 		if(u1.isEmpty()) {
 			throw new CustomerException("♣█☻ Invalid Entry ☻█♣");
@@ -60,11 +60,11 @@ public class CustomerService implements ICustomerService{
 	}
 
 	@Override
-	public Customer viewCustomer(Customer cust) throws CustomerException, LogInException {
+	public Customer viewCustomer(String Id) throws CustomerException, LogInException{
 
-		Optional<Customer> sessionOpt= cd.findByCustomerId(cust.getCustomerId());
+		Optional<Customer> sessionOpt= cd.findByCustomerId(Id);
 
-		if(sessionOpt.isEmpty()) {
+		if(!sessionOpt.isPresent()) {
 			throw new CustomerException("♣█☻ Login to view Account ☻█♣");
 		}
 		else if(sessionOpt.get().getUser().getUuId()==null){
@@ -75,6 +75,7 @@ public class CustomerService implements ICustomerService{
 			return sessionOpt.get();
 		}
 	}
+	
 	@Override
 	public List<Customer> viewAllCustomers(LoginDTO dto,String location) throws CustomerException,LogInException {
 		List<Customer> customer=null;
