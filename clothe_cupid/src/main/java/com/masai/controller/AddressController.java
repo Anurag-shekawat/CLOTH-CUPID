@@ -1,5 +1,7 @@
 package com.masai.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -46,5 +48,13 @@ public class AddressController {
         Address address = aService.viewAddressbyId(id);
 
         return new ResponseEntity<Address>(address, HttpStatus.OK);
+    }
+
+    @GetMapping("/addresses")
+
+    public ResponseEntity<List<Address>> getAllAddress() throws AddressException{
+        List<Address> list = aService.viewAllAddress();
+        
+        return new ResponseEntity<>(list,HttpStatus.OK);
     }
 }

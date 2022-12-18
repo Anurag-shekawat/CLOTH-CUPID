@@ -1,16 +1,13 @@
 package com.masai.module;
 
 
-import javax.persistence.CascadeType;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotBlank;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import javax.validation.constraints.NotNull;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -26,13 +23,13 @@ import lombok.Setter;
 @Setter
 public class Product {
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer productId;
 	
 	@NotBlank(message = "Enter Product Name")
 	private String productName;
 	
-	@NotBlank(message = "Enter Product Price")
+	@NotNull(message = "Enter Product Price")
 	private double price;
 	
 	@NotBlank(message = "Enter Product Dimension")
@@ -44,7 +41,7 @@ public class Product {
 	@NotBlank(message = "Enter Product Manufacturer")
 	private String manufacturer;
 	
-	@NotBlank(message = "Enter Product Quantity")
+	@NotNull(message = "Enter Product Quantity")
 	private Integer quantity;
 	
 	@Embedded

@@ -1,21 +1,17 @@
 package com.masai.module;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToMany;
-import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Parameter;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -47,6 +43,7 @@ public class Customer {
 	
 	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "customerId")
+	@JsonIgnore
 	private Users user;
 	
 	// @OneToOne(cascade = CascadeType.ALL,mappedBy = "customer")
@@ -56,6 +53,7 @@ public class Customer {
 	// private List<OrderDetails> details = new ArrayList<>();
 	
 	@OneToOne(cascade = CascadeType.ALL)
+	@JsonIgnore
 	private Address address ;
 
 }

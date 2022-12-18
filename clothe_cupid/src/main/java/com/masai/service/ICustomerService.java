@@ -1,7 +1,5 @@
 package com.masai.service;
 
-import java.util.List;
-
 import com.masai.exception.CustomerException;
 import com.masai.exception.LogInException;
 import com.masai.module.Customer;

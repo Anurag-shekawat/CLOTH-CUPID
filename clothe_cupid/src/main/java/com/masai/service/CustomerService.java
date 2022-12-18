@@ -1,7 +1,5 @@
 package com.masai.service;
 
-import java.util.List;
-import java.util.Objects;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,6 +38,10 @@ public class CustomerService implements ICustomerService{
 		} else if(!c2.get().getPassword().equals(password)) {
 			throw new CustomerException("♣█☻ Login first to add users ☻█♣");
 		}
+
+		
+// 		customer.getAddress().setCustomer(customer);
+
 		return cd.save(customer);
 	}
 

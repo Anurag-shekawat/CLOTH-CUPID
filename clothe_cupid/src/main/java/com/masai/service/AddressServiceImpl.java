@@ -8,8 +8,10 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.masai.exception.AddressException;
+import com.masai.exception.CustomerException;
 import com.masai.module.Address;
 import com.masai.repository.AddressDao;
+import com.masai.repository.CustomerDao;
 
 @Service
 
@@ -18,13 +20,18 @@ public class AddressServiceImpl implements AddressService {
 	@Autowired
 	private AddressDao aDao;
 
+	@Autowired
+	private CustomerDao cDao;
 
 	@Override
 	public Address addAddress(Address add) throws AddressException {
+		// Customer customer = cDao.findByCustomerId(custId).orElseThrow(() -> new CustomerException("Customer Not found..."));
 		if (add!=null) {
+			add.getCustomer().setAddress(add);
 			return aDao.save(add);
 		}
 
+		
 		else throw new AddressException("Please enter the correct Address details");
 	}
 
@@ -33,7 +40,7 @@ public class AddressServiceImpl implements AddressService {
 		Optional<Address> existingAddress = aDao.findById(add.getAddressId());
 
 		if (existingAddress.isPresent()) {
-
+			add.getCustomer().setAddress(add);
 			return aDao.save(add);
 
 		} else {
@@ -45,6 +52,8 @@ public class AddressServiceImpl implements AddressService {
 	@Override
 	public Address removeAddress(int id) throws AddressException {
 		Address existingAddress = aDao.findById(id).orElseThrow(() -> new AddressException("Address Not Found..."));
+		existingAddress.getCustomer().setAddress(null);
+		existingAddress.setCustomer(null);
 		aDao.delete(existingAddress);
 		return existingAddress;
 	}
