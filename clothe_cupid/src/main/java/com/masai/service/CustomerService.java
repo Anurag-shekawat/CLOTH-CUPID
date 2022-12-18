@@ -50,6 +50,26 @@ public class CustomerService implements ICustomerService{
 	public Customer updateCustomer(Customer cust,String key) throws CustomerException {
 
 		Optional<Users> u1= ud.findByUuId(key);
+		Optional<Customer> c1= cd.findByCustomerId(cust.getCustomerId());
+		
+		if(cust.getFirstName()==null) {
+			cust.setFirstName(c1.get().getFirstName());
+		}
+		if(cust.getLastName()==null) {
+			cust.setFirstName(c1.get().getLastName());
+		}
+		if(cust.getEmail()==null) {
+			cust.setEmail(c1.get().getEmail());
+		}
+		if(cust.getMobileNumber()==null) {
+			cust.setMobileNumber(c1.get().getMobileNumber());
+		}
+		if(cust.getPassword()==null) {
+			cust.setPassword(c1.get().getPassword());
+		}
+		if(cust.getRole()==null) {
+			cust.setRole(c1.get().getRole());
+		}
 
 		if(u1.isEmpty()) {
 			throw new CustomerException("♣█☻ Invalid Entry ☻█♣");

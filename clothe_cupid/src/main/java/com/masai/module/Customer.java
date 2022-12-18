@@ -7,9 +7,14 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Parameter;
+import org.hibernate.validator.constraints.Length;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -33,12 +38,21 @@ public class Customer {
 	})
 	private String customerId;
 	
+	@NotBlank(message = "☻ Please fill First Name ☻")
 	private String firstName;
-	
+	@NotBlank(message = "☻ Please fill Last Name ☻")
 	private String lastName;
+	
+	@Pattern(message = "☻ Please fill Phone Number ☻",regexp="(^$|[0-9]{10})")
+	//@NotBlank(message = "☻ Please fill Phone Number ☻")
 	private String mobileNumber;
+	@NotBlank(message = "☻ Please fill Email ☻")
+	@Email
 	private String email;
+	@NotBlank(message = "☻ Please fill Password ☻")
+	@Size(max = 12,min = 5)
 	private String password;
+	@NotBlank(message = "☻ Please fill Role ☻")
 	private String role;
 	
 	@OneToOne(cascade = CascadeType.ALL)
