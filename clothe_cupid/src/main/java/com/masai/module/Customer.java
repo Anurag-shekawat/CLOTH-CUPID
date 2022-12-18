@@ -7,6 +7,10 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Parameter;
@@ -33,12 +37,25 @@ public class Customer {
 	})
 	private String customerId;
 	
+	@NotNull(message = "first name cannot be null")
 	private String firstName;
 	
+	@NotNull(message = "last name cannot be null")
 	private String lastName;
+	
+	@NotNull(message = "mobile number cannot be null")
+	@Pattern(regexp = "[7,8,9]{1}[0-9]{9}",message = "Invalid mobile number")
 	private String mobileNumber;
+	
+	@NotNull(message = "email cannot be null")
+	@Email
 	private String email;
+	
+	@NotNull(message = "Password cannot be null")
+	@Size(min = 8,max = 15,message = "Password should be min 8 and max 15 character length.")
 	private String password;
+	
+	@NotNull(message = "Role cannot be null")
 	private String role;
 	
 	@OneToOne(cascade = CascadeType.ALL)
