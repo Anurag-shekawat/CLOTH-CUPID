@@ -7,6 +7,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.masai.exception.CustomerException;
 import com.masai.exception.LogInException;
 import com.masai.module.Customer;
 import com.masai.module.LoginDTO;
@@ -81,6 +82,17 @@ public class LogInService implements ILoginService{
 
 		return sDao.save(currentUserSession);
 
+	}
+	@Override
+	public Users signUp(Customer customer) throws CustomerException, LogInException {
+		Optional<Customer>c1= cDao.findByCustomerId(customer.getCustomerId());
+		if (c1.isPresent()) {
+			throw new CustomerException("♣█☻ Already record there ☻█♣");
+		}
+		customer.setRole("customer");
+		cDao.save(customer);
+
+		return validateUser(customer);
 	}
 	
 	
