@@ -7,6 +7,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
+import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -26,8 +27,10 @@ public class OrderDetails {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer orderId;
 
+    @NotNull(message = "order date cannot be null")
     private LocalDate orderDate;
 
+    @NotNull(message = "order status cannot be null")
     private String orderStatus;
 
     // @ManyToOne(cascade = CascadeType.ALL)

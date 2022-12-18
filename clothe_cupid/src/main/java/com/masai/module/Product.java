@@ -6,7 +6,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 import lombok.AllArgsConstructor;
@@ -26,19 +25,19 @@ public class Product {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer productId;
 	
-	@NotBlank(message = "Enter Product Name")
+	@NotNull(message = "Enter Product Name")
 	private String productName;
 	
 	@NotNull(message = "Enter Product Price")
 	private double price;
 	
-	@NotBlank(message = "Enter Product Dimension")
+	@NotNull(message = "Enter Product Dimension")
 	private String dimension;
 	
-	@NotBlank(message = "Enter Product Specification")
+	@NotNull(message = "Enter Product Specification")
 	private String specification;
 	
-	@NotBlank(message = "Enter Product Manufacturer")
+	@NotNull(message = "Enter Product Manufacturer")
 	private String manufacturer;
 	
 	@NotNull(message = "Enter Product Quantity")

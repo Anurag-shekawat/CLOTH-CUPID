@@ -9,6 +9,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
@@ -38,21 +39,25 @@ public class Customer {
 	})
 	private String customerId;
 	
-	@NotBlank(message = "☻ Please fill First Name ☻")
+	@NotNull(message = "first name cannot be null")
 	private String firstName;
-	@NotBlank(message = "☻ Please fill Last Name ☻")
+	
+	@NotNull(message = "last name cannot be null")
 	private String lastName;
 	
-	@Pattern(message = "☻ Please fill Phone Number ☻",regexp="(^$|[0-9]{10})")
-	//@NotBlank(message = "☻ Please fill Phone Number ☻")
+	@NotNull(message = "mobile number cannot be null")
+	@Pattern(regexp = "[7,8,9]{1}[0-9]{9}",message = "Invalid mobile number")
 	private String mobileNumber;
-	@NotBlank(message = "☻ Please fill Email ☻")
+	
+	@NotNull(message = "email cannot be null")
 	@Email
 	private String email;
-	@NotBlank(message = "☻ Please fill Password ☻")
-	@Size(max = 12,min = 5)
+	
+	@NotNull(message = "Password cannot be null")
+	@Size(min = 8,max = 15,message = "Password should be min 8 and max 15 character length.")
 	private String password;
-	@NotBlank(message = "☻ Please fill Role ☻")
+	
+	@NotNull(message = "Role cannot be null")
 	private String role;
 	
 	@OneToOne(cascade = CascadeType.ALL)
