@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -24,10 +25,10 @@ public class CustomerControler {
 	@Autowired
 	private ICustomerService cService;
 	
-	@PostMapping("/customers")
-	public ResponseEntity<Customer> saveCustomer(@RequestBody Customer customer) throws CustomerException {
+	@PostMapping("/customer/userId")
+	public ResponseEntity<Customer> saveCustomer(@RequestBody Customer customer,@RequestParam(required = false) String userId,@RequestParam(required = false) String password) throws CustomerException {
 		
-		Customer savedCustomer= cService.addCustomer(customer);
+		Customer savedCustomer= cService.addCustomer(customer,userId,password);
 		
 		
 		return new ResponseEntity<Customer>(savedCustomer,HttpStatus.CREATED);
@@ -54,6 +55,12 @@ public class CustomerControler {
 		List<Customer> customer= cService.viewAllCustomers(dto,location);
 
 		return new ResponseEntity<List<Customer>>(customer,HttpStatus.OK);
+	}
+	@DeleteMapping("/DeleteCustomer")
+	public ResponseEntity<Customer> DeleteCustomer(@RequestBody Customer c1) throws CustomerException {
+		Customer customer= cService.removeCustomer(c1);
+
+		return new ResponseEntity<Customer>(customer,HttpStatus.OK);
 	}
 
 }

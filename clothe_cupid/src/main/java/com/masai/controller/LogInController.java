@@ -8,7 +8,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.masai.exception.CustomerException;
 import com.masai.exception.LogInException;
+import com.masai.module.Customer;
 import com.masai.module.LoginDTO;
 import com.masai.module.Users;
 import com.masai.service.ILoginService;
@@ -36,6 +38,14 @@ public class LogInController {
 		Users result = customerLogin.logOut(u1);
 
 		return new ResponseEntity<Users>(result,HttpStatus.OK);
+
+	}
+	
+	@PostMapping("/signUp")
+	public ResponseEntity<Users> signUp(@RequestBody Customer u1) throws LogInException, CustomerException {
+		Users result = customerLogin.signUp(u1);
+
+		return new ResponseEntity<Users>(result,HttpStatus.CREATED);
 
 	}
 

@@ -10,7 +10,7 @@ import com.masai.module.LoginDTO;
 
 public interface ICustomerService {
 	
-	public Customer addCustomer(Customer cust) throws CustomerException;
+	public Customer addCustomer(Customer cust, String id, String password) throws CustomerException;
 	
 	public Customer updateCustomer(Customer cust) throws CustomerException;
 	
