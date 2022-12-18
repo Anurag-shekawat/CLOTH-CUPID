@@ -1,5 +1,7 @@
 package com.masai.controller;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -42,7 +44,7 @@ public class LogInController {
 	}
 	
 	@PostMapping("/signUp")
-	public ResponseEntity<Users> signUp(@RequestBody Customer u1) throws LogInException, CustomerException {
+	public ResponseEntity<Users> signUp(@Valid @RequestBody Customer u1) throws LogInException, CustomerException {
 		Users result = customerLogin.signUp(u1);
 
 		return new ResponseEntity<Users>(result,HttpStatus.CREATED);
