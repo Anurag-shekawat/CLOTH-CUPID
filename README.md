@@ -1,4 +1,8 @@
 # Project Code: main-transport-9463
+
+#ER-Diagram:
+![ER-Diagram](https://user-images.githubusercontent.com/101379495/208394393-ea8f5e59-4a9b-4974-b74c-23fb6da6ea39.png)
+
 # Application Name - CLOTH CUPID
 # REST API for an Online Shopping Application
 
