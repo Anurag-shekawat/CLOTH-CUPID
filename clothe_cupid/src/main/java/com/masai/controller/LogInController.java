@@ -2,53 +2,57 @@ package com.masai.controller;
 
 import javax.validation.Valid;
 
+import com.masai.module.Admin;
+import com.masai.module.UsersSessions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.masai.exception.CustomerException;
 import com.masai.exception.LogInException;
 import com.masai.module.Customer;
 import com.masai.module.LoginDTO;
-import com.masai.module.Users;
 import com.masai.service.ILoginService;
 
 @RestController
 public class LogInController {
 	
 	@Autowired
-	private ILoginService customerLogin;
+	private ILoginService login;
 	
-	@PostMapping("/login")
-	public ResponseEntity<Users> logInCustomer(@RequestBody LoginDTO dto) throws LogInException {
+	@PostMapping("Customer/login")
+	public ResponseEntity<UsersSessions> logInCustomer(@RequestBody LoginDTO dto) throws LogInException {
 
-		Users result = customerLogin.logInAccount(dto);
+		UsersSessions result = login.logInAccount(dto);
 
-
-
-		return new ResponseEntity<Users>(result,HttpStatus.OK );
+		return new ResponseEntity<UsersSessions>(result,HttpStatus.OK );
 
 
 	}
 
-	@DeleteMapping("/logout")
-	public ResponseEntity<Users> logoutCustomer(@RequestBody Users u1) throws LogInException {
-		Users result = customerLogin.logOut(u1);
+	@DeleteMapping("Customer/logout")
+	public ResponseEntity<UsersSessions> logoutCustomer(@RequestParam(required = false) String key) throws LogInException {
+		UsersSessions result = login.logOut(key);
 
-		return new ResponseEntity<Users>(result,HttpStatus.OK);
+		return new ResponseEntity<UsersSessions>(result,HttpStatus.OK);
 
+	}
+	//88888888888888888888888888888888888888888888888888888 Admin Features 8888888888888888888888888888888888888888888888888888888\\
+	@PostMapping("/Admin/Login")
+	public ResponseEntity<UsersSessions> logInAdmin(@RequestBody LoginDTO dto) throws LogInException{
+
+		UsersSessions adminSession= login.logInAdmin(dto);
+
+		return new ResponseEntity<UsersSessions>(adminSession, HttpStatus.ACCEPTED);
+	}
+	@DeleteMapping("Admin/LogOut")
+	public ResponseEntity<UsersSessions> logOutAdmin(@RequestParam(required = false) String key) throws LogInException{
+		UsersSessions adminSession= login.logOutAdmin(key);
+
+		return new ResponseEntity<UsersSessions>(adminSession, HttpStatus.OK);
 	}
 	
-	@PostMapping("/signUp")
-	public ResponseEntity<Users> signUp(@Valid @RequestBody Customer u1) throws LogInException, CustomerException {
-		Users result = customerLogin.signUp(u1);
 
-		return new ResponseEntity<Users>(result,HttpStatus.CREATED);
-
-	}
 
 }

@@ -16,5 +16,8 @@ public interface CustomerDao extends JpaRepository<Customer, String> {
 	
 	@Query(nativeQuery = true,value = "select * from Customer c inner join Address a on a.customer_customer_id= c.addresses_address_id where a.city=?1")
 	public List<Customer> viewAllCustomers(String location);
+
+	public Optional<Customer> findByEmail(String email);
+	public Optional<Customer> findByMobileNumber(String mobile);
 	
 }

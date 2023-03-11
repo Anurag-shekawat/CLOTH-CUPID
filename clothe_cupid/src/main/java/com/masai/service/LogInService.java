@@ -4,6 +4,9 @@ package com.masai.service;
 import java.time.LocalDateTime;
 import java.util.Optional;
 
+import com.masai.module.Admin;
+import com.masai.module.UsersSessions;
+import com.masai.repository.AdminRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -11,9 +14,8 @@ import com.masai.exception.CustomerException;
 import com.masai.exception.LogInException;
 import com.masai.module.Customer;
 import com.masai.module.LoginDTO;
-import com.masai.module.Users;
 import com.masai.repository.CustomerDao;
-import com.masai.repository.UserDao;
+import com.masai.repository.UserSessionDao;
 
 import net.bytebuddy.utility.RandomString;
 
@@ -24,76 +26,97 @@ public class LogInService implements ILoginService{
 	private CustomerDao cDao;
 	
 	@Autowired
-	private UserDao sDao;
+	private UserSessionDao usDao;
+
+	@Autowired
+	private AdminRepo aDao;
 
 	@Override
-	public Users logInAccount(LoginDTO dto) throws LogInException {
+	public UsersSessions logInAccount(LoginDTO dto) throws LogInException {
 
-		Optional<Customer> existingCustomer= cDao.findByCustomerId(dto.getUserId());
+		Optional<Customer> existingCustomer= cDao.findByEmail(dto.getUserId());
+		Optional<Customer> customerWithPhone= cDao.findByMobileNumber(dto.getUserId());
 
-		if(existingCustomer.isEmpty()) {
+		if(existingCustomer.isPresent() || customerWithPhone.isPresent()) {
 
-			throw new LogInException("Please Enter a valid UserId");
-
-
-		}
-		Optional<Users> validCustom =  sDao.findByUserId(existingCustomer.get().getCustomerId());
-
-		if(validCustom.isPresent()) {
-
-			throw new LogInException("User already Logged In with this number");
-
-		}
-
-		if(existingCustomer.get().getPassword().equals(dto.getPassword())) {
-
-
-			return validateUser(existingCustomer.get());
+			if (existingCustomer.isPresent() && existingCustomer.get().getPassword().equals(dto.getPassword())){
+				Optional<UsersSessions> validCustom =  usDao.findByUserId(existingCustomer.get().getCustomerId());
+				if(validCustom.isPresent()){
+					throw new LogInException("User already Logged In with this ID");
+				}
+				else{
+					String key= RandomString.make(16);
+					Customer customer= existingCustomer.get();
+					return usDao.save(new UsersSessions(customer.getCustomerId(), customer.getPassword(), "Customer", key, LocalDateTime.now()));
+				}
+			}
+			else if (customerWithPhone.isPresent() && customerWithPhone.get().getPassword().equals(dto.getPassword())){
+				Optional<UsersSessions> validCustom =  usDao.findByUserId(customerWithPhone.get().getCustomerId());
+				if(validCustom.isPresent()){
+					throw new LogInException("User already Logged In with this ID");
+				}
+				else{
+					String key= RandomString.make(16);
+					Customer customer= customerWithPhone.get();
+					return usDao.save(new UsersSessions(customer.getCustomerId(), customer.getPassword(), "Customer", key, LocalDateTime.now()));
+				}
+			}
+			else{
+				throw new LogInException("Incorrect Password");
+			}
 		}
 		else
-			throw new LogInException("Please Enter a valid password");
+			throw new LogInException("Please Enter a valid UserId");
 	}
 
 	@Override
-	public Users logOut(Users u) throws LogInException {
+	public UsersSessions logOut(String key) throws LogInException {
 
-		Optional<Users>validCustomerSession = sDao.findByUuId(u.getUuId());
-
+		Optional<UsersSessions>validCustomerSession = usDao.findByUuId(key);
 
 		if(validCustomerSession.isEmpty()) {
-			throw new LogInException("User Not Logged In with this number");
+			throw new LogInException("♣█☻ Key Error ☻█♣");
 
+		}else{
+			usDao.delete(validCustomerSession.get());
+			return validCustomerSession.get();
 		}
-
-		sDao.delete(validCustomerSession.get());
-
-
-		return validCustomerSession.get();
-
 
 	}
 
 	@Override
-	public Users validateUser(Customer u) throws LogInException {
+	public UsersSessions logInAdmin(LoginDTO dto) throws LogInException {
+		Optional<Admin> opAdmin= aDao.findByEmail(dto.getUserId());
 
-
-		String key= RandomString.make(9);
-		Users currentUserSession = new Users(u.getCustomerId(),u.getPassword(),u.getRole(),key,LocalDateTime.now());
-
-		return sDao.save(currentUserSession);
-
-	}
-	@Override
-	public Users signUp(Customer customer) throws CustomerException, LogInException {
-		Optional<Customer>c1= cDao.findByCustomerId(customer.getCustomerId());
-		if (c1.isPresent()) {
-			throw new CustomerException("♣█☻ Already record there ☻█♣");
+		if (opAdmin.isEmpty()){
+			throw new LogInException("Incorrect username");
 		}
-		customer.setRole("customer");
-		cDao.save(customer);
-
-		return validateUser(customer);
+		Optional<UsersSessions> customerActive= usDao.findByUserId(opAdmin.get().getAdminId());
+		if(customerActive.isPresent()){
+			throw new LogInException("User already Logged In with this Email");
+		}
+		if(opAdmin.get().getPassword().equals(dto.getPassword())){
+			String key= RandomString.make(16);
+			Admin admin= opAdmin.get();
+			return usDao.save(new UsersSessions(admin.getAdminId(), admin.getPassword(), "Admin", key, LocalDateTime.now()));
+		}
+		else {
+			throw new LogInException("Please Enter a valid password");
+		}
 	}
-	
-	
+
+	@Override
+	public UsersSessions logOutAdmin(String key) throws LogInException {
+		Optional<UsersSessions>checkAlreadyIn = usDao.findByUuId(key);
+
+		if(checkAlreadyIn.isEmpty()){
+			throw new LogInException("♣█☻ Key Error ☻█♣");
+		} else if(checkAlreadyIn.get().getRole().equalsIgnoreCase("admin")) {
+			throw new LogInException("♣█☻ Key Error ☻█♣");
+		} else {
+			usDao.delete(checkAlreadyIn.get());
+			return checkAlreadyIn.get();
+		}
+	}
+
 }

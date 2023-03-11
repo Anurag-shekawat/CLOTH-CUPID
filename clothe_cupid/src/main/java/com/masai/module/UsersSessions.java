@@ -20,7 +20,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Users {
+public class UsersSessions {
 	
 	@Id
 	private String userId;

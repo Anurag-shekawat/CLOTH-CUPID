@@ -56,21 +56,7 @@ public class Customer {
 	@NotNull(message = "Password cannot be null")
 	@Size(min = 8,max = 15,message = "Password should be min 8 and max 15 character length.")
 	private String password;
-	
-	@NotNull(message = "Role cannot be null")
-	private String role;
-	
-	@OneToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "customerId")
-	@JsonIgnore
-	private Users user;
-	
-	// @OneToOne(cascade = CascadeType.ALL,mappedBy = "customer")
-	// private Cart cart;
-	
-	// @OneToMany(cascade = CascadeType.ALL,mappedBy = "customer",fetch = FetchType.EAGER)
-	// private List<OrderDetails> details = new ArrayList<>();
-	
+
 	@OneToOne(cascade = CascadeType.ALL)
 	@JsonIgnore
 	private Address address ;

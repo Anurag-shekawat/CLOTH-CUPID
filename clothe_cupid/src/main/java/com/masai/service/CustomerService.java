@@ -10,9 +10,9 @@ import com.masai.exception.CustomerException;
 import com.masai.exception.LogInException;
 import com.masai.module.Customer;
 import com.masai.module.LoginDTO;
-import com.masai.module.Users;
+import com.masai.module.UsersSessions;
 import com.masai.repository.CustomerDao;
-import com.masai.repository.UserDao;
+import com.masai.repository.UserSessionDao;
 
 
 @Service
@@ -22,7 +22,7 @@ public class CustomerService implements ICustomerService{
 	private CustomerDao cd;
 	
 	@Autowired
-	private UserDao ud;
+	private UserSessionDao ud;
 
 	@Override
 	public Customer addCustomer(Customer customer,String id, String password) throws CustomerException {
@@ -49,7 +49,7 @@ public class CustomerService implements ICustomerService{
 	@Override
 	public Customer updateCustomer(Customer cust,String key) throws CustomerException {
 
-		Optional<Users> u1= ud.findByUuId(key);
+		Optional<UsersSessions> u1= ud.findByUuId(key);
 		Optional<Customer> c1= cd.findByCustomerId(cust.getCustomerId());
 		
 		if(cust.getFirstName()==null) {
@@ -118,7 +118,7 @@ public class CustomerService implements ICustomerService{
 	@Override
 	public Customer removeCustomer(Customer cust) throws CustomerException {
 
-		Optional<Users> sessionOpt= ud.findByUserId(cust.getCustomerId());
+		Optional<UsersSessions> sessionOpt= ud.findByUserId(cust.getCustomerId());
 
 		if(sessionOpt.isEmpty()) {
 			throw new CustomerException("♣█☻ Login to Delete Account ☻█♣");
